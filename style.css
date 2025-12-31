@@ -1,0 +1,297 @@
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --primary: #4F46E5;       /* Indigo moderne */
+            --primary-dark: #4338ca;
+            --secondary: #0ea5e9;     /* Bleu ciel */
+            --accent: #f59e0b;        /* Orange pour l'énergie/créativité */
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+            --container-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-body);
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            line-height: 1.2;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 800; }
+        h2 { font-size: 2rem; color: var(--primary); margin-top: 3rem; margin-bottom: 2rem; text-align: center; position: relative; }
+        h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        p { margin-bottom: 1rem; color: var(--text-light); }
+
+        /* Petit trait décoratif sous les titres H2 */
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- LAYOUT UTILS --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h1 { color: white; margin-bottom: 1.5rem; }
+        .hero p { color: rgba(255,255,255, 0.9); font-size: 1.2rem; max-width: 700px; margin: 0 auto; }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+
+        /* --- GRID SYSTEMS --- */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+        }
+
+        /* --- CARDS (COURS & RECHERCHE) --- */
+        .card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: #e0e7ff;
+            color: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .card h3 { color: var(--text-main); }
+        
+        /* Couleurs spécifiques pour les types de cartes */
+        .card.intra { border-color: var(--secondary); }
+        .card.matrix { border-color: var(--accent); }
+        .card.soft { border-color: #10b981; }
+
+        /* --- ESSAYS SECTION --- */
+        .essay-item {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .essay-header {
+            background: #f1f5f9;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .essay-body {
+            padding: 2rem;
+        }
+
+        .essay-body p {
+            font-style: italic;
+            color: var(--text-main);
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+        }
+
+        /* --- CASE STUDY (Timeline style) --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #e2e8f0;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-left { left: 0; }
+        .timeline-right { left: 50%; }
+        .timeline-left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+        .timeline-right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+        .timeline-right::after { left: -10px; }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--text-main);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        footer p { color: #94a3b8; font-size: 0.9rem; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .nav-links { display: none; } /* Simplified for mobile demo */
+            .timeline::after { left: 31px; }
+            .timeline-container { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-container::before { left: 60px; border: medium solid white; border-width: 10px 10px 10px 0; border-color: transparent white transparent transparent; }
+            .timeline-left::after, .timeline-right::after { left: 21px; }
+            .timeline-right { left: 0%; }
+        }

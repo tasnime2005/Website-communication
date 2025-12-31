@@ -1,0 +1,1803 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Communication & Compétences</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --surface: #ffffff;
+      --surface-muted: #f1f5f9;
+      --ink: #0f172a;
+      --muted: #475569;
+      --accent: #0ea5a4;
+      --accent-2: #f97316;
+      --accent-3: #84cc16;
+      --accent-4: #2563eb;
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Sora", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(135deg, #f6f4ef 0%, #fff4e5 40%, #eef7ff 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(14, 165, 164, 0.18), transparent 40%),
+        radial-gradient(circle at 88% 18%, rgba(249, 115, 22, 0.16), transparent 40%),
+        radial-gradient(circle at 18% 80%, rgba(132, 204, 22, 0.12), transparent 45%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: "Fraunces", serif;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 16px;
+      padding: 8px 16px;
+      background: var(--surface);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+
+    .skip-link:focus {
+      left: 16px;
+      z-index: 1000;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      z-index: 2000;
+      transition: width 0.2s ease-out;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 6px rgba(14, 165, 164, 0.12);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: all 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(14, 165, 164, 0.12);
+      color: var(--ink);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: var(--surface);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 110px 0 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 50px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.12);
+      color: #1e40af;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      margin-bottom: 24px;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(14, 165, 164, 0.3);
+    }
+
+    .btn.ghost {
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .hero-visual {
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero-panel {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .hero-panel h3 {
+      margin-bottom: 12px;
+    }
+
+    .hero-mini {
+      background: rgba(14, 165, 164, 0.12);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-weight: 600;
+      color: #0f766e;
+    }
+
+    .hero-mini span {
+      display: block;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.75rem;
+      color: var(--accent-4);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      margin-bottom: 14px;
+    }
+
+    .modules {
+      padding: 70px 0 90px;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .module-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: grid;
+      gap: 10px;
+    }
+
+    .module-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    .module-index {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--muted);
+      border: none;
+      cursor: pointer;
+    }
+
+    .chip.active {
+      background: rgba(14, 165, 164, 0.16);
+      color: var(--ink);
+    }
+
+    .module {
+      padding: 90px 0;
+    }
+
+    .module.alt {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .module-header {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .module-header h2 {
+      font-size: clamp(2rem, 3vw, 2.4rem);
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      display: grid;
+      gap: 10px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    input,
+    textarea {
+      font-family: "Sora", sans-serif;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .output {
+      background: rgba(37, 99, 235, 0.1);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+
+    .range-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 1fr) 2fr auto;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .range-value {
+      font-weight: 700;
+      color: var(--ink);
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .average {
+      margin-top: 18px;
+    }
+
+    .average-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(148, 163, 184, 0.25);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .average-bar span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.2s ease;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 12px;
+    }
+
+    .accordion-item {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border: none;
+      background: transparent;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 16px;
+      color: var(--muted);
+      transition: max-height 0.25s ease, padding 0.25s ease;
+    }
+
+    .accordion-item.is-open .accordion-content {
+      max-height: 220px;
+      padding: 0 16px 14px;
+    }
+
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .style-card {
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+
+    .style-card.active {
+      border-color: rgba(14, 165, 164, 0.6);
+      box-shadow: 0 14px 30px rgba(14, 165, 164, 0.2);
+    }
+
+    .spotlight {
+      background: rgba(14, 165, 164, 0.1);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .offman-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .offman-cell {
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 1px dashed rgba(148, 163, 184, 0.4);
+      background: #fff;
+      min-height: 100px;
+    }
+
+    .offman-cell.active {
+      border-style: solid;
+      border-color: rgba(249, 115, 22, 0.6);
+      box-shadow: 0 12px 24px rgba(249, 115, 22, 0.2);
+    }
+
+    .slider-label {
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 8px;
+    }
+
+    .skills-lab {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 16px;
+    }
+
+    .skill-item {
+      width: 100%;
+      text-align: left;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      background: #fff;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .skill-item.active {
+      background: rgba(37, 99, 235, 0.1);
+      border-color: rgba(37, 99, 235, 0.4);
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+
+    .skill-panel {
+      background: rgba(37, 99, 235, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .tab.active {
+      background: rgba(14, 165, 164, 0.16);
+      border-color: rgba(14, 165, 164, 0.4);
+      color: #0f766e;
+    }
+
+    .tab-panel {
+      display: none;
+      background: rgba(14, 165, 164, 0.08);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      color: var(--muted);
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .scenario-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .scenario-panel {
+      background: rgba(249, 115, 22, 0.1);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      color: #9a3412;
+      font-weight: 600;
+    }
+
+    .callout {
+      background: rgba(249, 115, 22, 0.12);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      color: #9a3412;
+      font-weight: 600;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .mini-card {
+      background: rgba(15, 23, 42, 0.06);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.12);
+      color: #1e40af;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .triad {
+      display: grid;
+      gap: 16px;
+      justify-items: center;
+    }
+
+    .triad-wheel {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: conic-gradient(
+        rgba(14, 165, 164, 0.4) 0deg 120deg,
+        rgba(249, 115, 22, 0.4) 120deg 240deg,
+        rgba(37, 99, 235, 0.4) 240deg 360deg
+      );
+      margin: 0 auto;
+    }
+
+    .triad-wheel::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.3);
+    }
+
+    .triad-btn {
+      position: absolute;
+      z-index: 2;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .triad-btn.active {
+      background: rgba(14, 165, 164, 0.16);
+      border-color: rgba(14, 165, 164, 0.5);
+    }
+
+    .triad-btn.pensee {
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .triad-btn.emotion {
+      right: -4px;
+      bottom: 36px;
+    }
+
+    .triad-btn.comportement {
+      left: -4px;
+      bottom: 36px;
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+
+    .matrix-table th,
+    .matrix-table td {
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 10px;
+      vertical-align: top;
+      text-align: left;
+      color: var(--muted);
+    }
+
+    .matrix-table th {
+      background: rgba(15, 23, 42, 0.04);
+      color: var(--ink);
+    }
+
+    .footer {
+      padding: 30px 0 50px;
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      margin-top: 50px;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: all 0.5s ease;
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        right: 4vw;
+        top: 70px;
+        background: #fff;
+        border-radius: var(--radius-md);
+        padding: 14px;
+        box-shadow: var(--shadow);
+        display: none;
+        flex-direction: column;
+        width: min(260px, 88vw);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .hero-grid,
+      .module-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-lab {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="scroll-progress"></div>
+  <a class="skip-link" href="#modules">Aller au contenu</a>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        Formation Communication
+      </div>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        Menu
+      </button>
+      <nav class="nav-links" id="nav-links">
+        <a href="#intrapersonnelle">Intrapersonnelle</a>
+        <a href="#ecoute">Écoute</a>
+        <a href="#matrice-excellence">Matrice d'excellence</a>
+        <a href="#index-computation">Index de computation</a>
+        <a href="#dilts">Matrice de Dilts</a>
+        <a href="#hofman">Hofman</a>
+        <a href="#offman">Offman</a>
+        <a href="#assertivite">Assertivité</a>
+        <a href="#resilience">Résilience</a>
+        <a href="#competences">Compétences 21e</a>
+        <a href="#abus">Patron abusif</a>
+        <a href="#etude-cas">Étude de cas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="container hero-grid">
+        <div class="hero-copy" data-reveal>
+          <span class="pill">Cours de communication</span>
+          <h1>L'assertivité, la résilience et les compétences du 21e siècle.</h1>
+          <p>Dans un monde en constante évolution, marqué par l'incertitude, la transformation numérique et la complexité des relations humaines, certaines compétences deviennent indispensables pour s'adapter et réussir.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#modules">Explorer les composantes</a>
+          </div>
+        </div>
+        <div class="hero-visual" data-reveal>
+          <div class="hero-panel">
+            <h3>5 compétences majeures du 21e siècle</h3>
+            <ul class="list">
+              <li>La pensée critique</li>
+              <li>La créativité</li>
+              <li>La communication</li>
+              <li>La collaboration</li>
+              <li>La compétence numérique</li>
+            </ul>
+          </div>
+          <div class="hero-mini">
+            <span>Écoute</span>
+            Une volonté. Une intention. Une attention.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules" class="modules">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Parcours</p>
+          <h2>Les composantes du cours, une par une.</h2>
+          <p>Chaque bloc reprend le contenu des fiches et propose un format interactif pour le travailler.</p>
+        </div>
+        <div class="modules-grid">
+          <a href="#intrapersonnelle" class="module-card" data-reveal>
+            <span class="module-index">01</span>
+            <h3>Intrapersonnelle</h3>
+            <p>Dialogue intérieur et reformulation positive.</p>
+            <div class="chip-row">
+              <span class="chip">Pensées</span>
+              <span class="chip">Confiance</span>
+            </div>
+          </a>
+          <a href="#ecoute" class="module-card" data-reveal>
+            <span class="module-index">02</span>
+            <h3>Écoute & relation</h3>
+            <p>Volonté, intention, attention.</p>
+            <div class="chip-row">
+              <span class="chip">Être</span>
+              <span class="chip">Confiance</span>
+            </div>
+          </a>
+          <a href="#matrice-excellence" class="module-card" data-reveal>
+            <span class="module-index">03</span>
+            <h3>Matrice d'excellence</h3>
+            <p>Cinq dimensions complémentaires.</p>
+            <div class="chip-row">
+              <span class="chip">Savoir</span>
+              <span class="chip">Savoir-être</span>
+            </div>
+          </a>
+          <a href="#index-computation" class="module-card" data-reveal>
+            <span class="module-index">04</span>
+            <h3>Index de computation</h3>
+            <p>Auto-évaluation des compétences.</p>
+            <div class="chip-row">
+              <span class="chip">Pensée</span>
+              <span class="chip">Émotion</span>
+            </div>
+          </a>
+          <a href="#dilts" class="module-card" data-reveal>
+            <span class="module-index">05</span>
+            <h3>Matrice de Dilts</h3>
+            <p>Niveaux logiques du changement.</p>
+            <div class="chip-row">
+              <span class="chip">Identité</span>
+              <span class="chip">Mission</span>
+            </div>
+          </a>
+          <a href="#hofman" class="module-card" data-reveal>
+            <span class="module-index">06</span>
+            <h3>Quadrant d'Hofman</h3>
+            <p>Styles de comportement et communication.</p>
+            <div class="chip-row">
+              <span class="chip">Analytique</span>
+              <span class="chip">Expressif</span>
+            </div>
+          </a>
+          <a href="#offman" class="module-card" data-reveal>
+            <span class="module-index">07</span>
+            <h3>Quadrant d'Offman</h3>
+            <p>Qualité, piège, challenge, allergie.</p>
+            <div class="chip-row">
+              <span class="chip">Planification</span>
+              <span class="chip">Souplesse</span>
+            </div>
+          </a>
+          <a href="#assertivite" class="module-card" data-reveal>
+            <span class="module-index">08</span>
+            <h3>Assertivité</h3>
+            <p>Exprimer clairement ses idées et limites.</p>
+            <div class="chip-row">
+              <span class="chip">Respect</span>
+              <span class="chip">Équilibre</span>
+            </div>
+          </a>
+          <a href="#resilience" class="module-card" data-reveal>
+            <span class="module-index">09</span>
+            <h3>Résilience</h3>
+            <p>Faire face et rebondir.</p>
+            <div class="chip-row">
+              <span class="chip">Équilibre</span>
+              <span class="chip">Motivation</span>
+            </div>
+          </a>
+          <a href="#competences" class="module-card" data-reveal>
+            <span class="module-index">10</span>
+            <h3>Compétences 21e</h3>
+            <p>Pensée critique, créativité, collaboration.</p>
+            <div class="chip-row">
+              <span class="chip">Communication</span>
+              <span class="chip">Numérique</span>
+            </div>
+          </a>
+          <a href="#abus" class="module-card" data-reveal>
+            <span class="module-index">11</span>
+            <h3>Patron abusif</h3>
+            <p>Cadre clair, traçabilité, protection.</p>
+            <div class="chip-row">
+              <span class="chip">Limites</span>
+              <span class="chip">Plan B</span>
+            </div>
+          </a>
+          <a href="#etude-cas" class="module-card" data-reveal>
+            <span class="module-index">12</span>
+            <h3>Étude de cas</h3>
+            <p>Conflit avec un collègue.</p>
+            <div class="chip-row">
+              <span class="chip">Dilts</span>
+              <span class="chip">Offman</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="intrapersonnelle" class="module" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 01</span>
+          <h2>Communication intrapersonnelle</h2>
+          <p>La communication intrapersonnelle est le dialogue intérieur que nous avons avec nous-mêmes. Elle influence nos émotions, notre confiance et nos comportements.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Dialogue intérieur</h3>
+            <p>C'est la manière dont je me motive ou me décourage dans différentes situations. Un dialogue intérieur positif renforce la confiance et la performance.</p>
+            <p>Souvent, avant de parler en public, je pense :</p>
+            <ul class="list">
+              <li>« Est-ce que je vais me tromper ? »</li>
+              <li>« Les autres sont meilleurs que moi »</li>
+            </ul>
+            <p>Ces pensées peuvent bloquer la prise de parole.</p>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Exercice : transformer pensées négatives → positives</h3>
+            <div class="field">
+              <label for="neg-thought">Pensée négative</label>
+              <input id="neg-thought" type="text" placeholder="Ex : Je vais échouer" />
+            </div>
+            <div class="field">
+              <label for="pos-thought">Pensée positive</label>
+              <input id="pos-thought" type="text" placeholder="Ex : Je suis capable et je progresse" />
+            </div>
+            <div class="chip-row">
+              <button class="chip" type="button" data-negative="Je vais échouer" data-positive="Je suis capable et je progresse">Exemple</button>
+            </div>
+            <div class="output" id="reframe-output">Objectif : remplacer les pensées limitantes par des pensées motivantes.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ecoute" class="module alt" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 02</span>
+          <h2>Écoute, être, faire, avoir</h2>
+          <p>Écoute = une volonté, une intention, une attention. Relation → confiance.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Écoute</h3>
+            <div class="chip-row">
+              <button class="chip active" type="button" data-ecoute="volonte">Volonté</button>
+              <button class="chip" type="button" data-ecoute="intention">Intention</button>
+              <button class="chip" type="button" data-ecoute="attention">Attention</button>
+            </div>
+            <div class="spotlight" id="ecoute-panel">L'écoute = une volonté.</div>
+            <div class="mini-grid">
+              <div class="mini-card">L'être</div>
+              <div class="mini-card">Le faire</div>
+              <div class="mini-card">L'avoir</div>
+            </div>
+            <div class="badge">Relation → confiance</div>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Observation & obstacles</h3>
+            <ul class="list">
+              <li>Abdelkrim : la main dans la poche.</li>
+              <li>Il lit rapidement.</li>
+              <li>Il ne fait pas de pause entre les phrases.</li>
+              <li>Il faut une bonne prononciation.</li>
+            </ul>
+            <p><strong>Exercice :</strong> point d'exclamation ! Les gens rient.</p>
+            <ul class="list">
+              <li>Obstacles à l'écoute.</li>
+              <li>Déperdition du message.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="matrice-excellence" class="module" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 03</span>
+          <h2>La matrice d'excellence</h2>
+          <p>La matrice d'excellence est un outil de développement personnel et professionnel qui permet d'atteindre la réussite à travers cinq dimensions complémentaires : le savoir, le savoir-faire, le savoir-être, le s'accomplir et le faire savoir.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Les 5 dimensions</h3>
+            <p><strong>Le savoir</strong> représente les connaissances théoriques acquises à travers les études et la formation.</p>
+            <ul class="list">
+              <li>Connaissances en communication</li>
+              <li>Notions théoriques du module</li>
+              <li>Culture générale</li>
+            </ul>
+            <p><strong>Le savoir-faire</strong> correspond à la capacité à appliquer les connaissances dans des situations réelles.</p>
+            <ul class="list">
+              <li>Prendre la parole</li>
+              <li>Travailler en équipe</li>
+              <li>Résoudre un problème</li>
+            </ul>
+            <p><strong>Le savoir-être</strong> concerne le comportement, l'attitude et les valeurs personnelles.</p>
+            <ul class="list">
+              <li>Respect</li>
+              <li>Ponctualité</li>
+              <li>Esprit d'équipe</li>
+              <li>Assertivité</li>
+            </ul>
+            <p><strong>S'accomplir</strong> signifie atteindre ses objectifs personnels et professionnels, tout en donnant du sens à ses actions.</p>
+            <ul class="list">
+              <li>Développer la confiance en soi</li>
+              <li>Réaliser son projet professionnel</li>
+              <li>Se sentir utile et motivé</li>
+            </ul>
+            <p><strong>Le faire savoir</strong> est la capacité à mettre en valeur ses compétences et ses réalisations.</p>
+            <ul class="list">
+              <li>Communication efficace</li>
+              <li>Présentation orale</li>
+              <li>CV et entretien</li>
+              <li>Réseaux professionnels</li>
+            </ul>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Auto-évaluation</h3>
+            <div class="range-row">
+              <label for="savoir-range">Savoir</label>
+              <div>
+                <input id="savoir-range" type="range" min="1" max="5" value="3" data-output="savoir-value" />
+              </div>
+              <span id="savoir-value" class="range-value">3</span>
+            </div>
+            <div class="range-row">
+              <label for="savoirfaire-range">Savoir-faire</label>
+              <div>
+                <input id="savoirfaire-range" type="range" min="1" max="5" value="3" data-output="savoirfaire-value" />
+              </div>
+              <span id="savoirfaire-value" class="range-value">3</span>
+            </div>
+            <div class="range-row">
+              <label for="savoiretre-range">Savoir-être</label>
+              <div>
+                <input id="savoiretre-range" type="range" min="1" max="5" value="3" data-output="savoiretre-value" />
+              </div>
+              <span id="savoiretre-value" class="range-value">3</span>
+            </div>
+            <div class="range-row">
+              <label for="accomplir-range">S'accomplir</label>
+              <div>
+                <input id="accomplir-range" type="range" min="1" max="5" value="3" data-output="accomplir-value" />
+              </div>
+              <span id="accomplir-value" class="range-value">3</span>
+            </div>
+            <div class="range-row">
+              <label for="faire-savoir-range">Faire savoir</label>
+              <div>
+                <input id="faire-savoir-range" type="range" min="1" max="5" value="3" data-output="faire-savoir-value" />
+              </div>
+              <span id="faire-savoir-value" class="range-value">3</span>
+            </div>
+            <div class="average">
+              <div class="average-bar"><span id="matrix-average-bar"></span></div>
+              <strong>Moyenne : <span id="matrix-average">3.0</span>/5</strong>
+            </div>
+            <div class="callout">Question : Serais-je capable d'intégrer une entreprise d'ici 4 mois ? Analyse personnelle selon les cinq dimensions de la matrice d'excellence.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="index-computation" class="module alt" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 04</span>
+          <h2>Index de computation</h2>
+          <p>L'index de computation est un outil d'auto-évaluation permettant de mesurer son niveau de compétences.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Objectifs</h3>
+            <ul class="list">
+              <li>Connaître ses forces</li>
+              <li>Identifier ses faiblesses</li>
+              <li>Suivre sa progression</li>
+            </ul>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Index de computation</h3>
+            <div class="triad">
+              <div class="triad-wheel" aria-hidden="true">
+                <button class="triad-btn pensee active" type="button" data-triad="pensee">Pensée</button>
+                <button class="triad-btn emotion" type="button" data-triad="emotion">Émotion</button>
+                <button class="triad-btn comportement" type="button" data-triad="comportement">Comportement</button>
+              </div>
+              <div class="spotlight" id="triad-panel">Pensée, émotion, comportement.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dilts" class="module" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 05</span>
+          <h2>Matrice de Dilts (niveaux logiques)</h2>
+          <p>La matrice de Dilts explique le fonctionnement du changement personnel à travers plusieurs niveaux. Elle permet d'analyser une situation et de trouver les causes profondes d'un problème.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Les niveaux</h3>
+            <ul class="list">
+              <li>Environnement (où ? quand ?)</li>
+              <li>Comportement (que fais-je ?)</li>
+              <li>Compétences (que sais-je faire ?)</li>
+              <li>Valeurs et croyances (pourquoi ?)</li>
+              <li>Identité (qui suis-je ?)</li>
+              <li>Mission (pour quoi ?)</li>
+            </ul>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Exploration guidée</h3>
+            <div class="accordion" data-accordion>
+              <div class="accordion-item is-open">
+                <button class="accordion-trigger" type="button" aria-expanded="true">Environnement</button>
+                <div class="accordion-content">Où et quand ? Décrivez le lieu, le moment, les contraintes concrètes.</div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false">Comportement</button>
+                <div class="accordion-content">Que fais-je ? Notez les actions observables.</div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false">Compétences</button>
+                <div class="accordion-content">Que sais-je faire ? Connaissances, méthodes, outils.</div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false">Valeurs et croyances</button>
+                <div class="accordion-content">Pourquoi ? Motivations, convictions, critères personnels.</div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false">Identité</button>
+                <div class="accordion-content">Qui suis-je ? Rôle, image de soi, posture.</div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false">Mission</button>
+                <div class="accordion-content">Pour quoi ? Finalité et contribution.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="hofman" class="module alt" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 06</span>
+          <h2>Quadrant d'Hofman</h2>
+          <p>Le quadrant d'Hofman est un outil qui permet d'identifier les styles de comportement et de communication.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Profils</h3>
+            <ul class="list">
+              <li>Analytique : logique, précis</li>
+              <li>Directif : orienté résultats</li>
+              <li>Relationnel : empathique</li>
+              <li>Expressif : créatif</li>
+            </ul>
+            <p>Adapter sa communication selon le profil de l'autre améliore le travail en équipe.</p>
+            <p><strong>Exercice :</strong> identifier son profil dominant et expliquer comment gérer un patron abusif en adoptant une communication adaptée.</p>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Sélecteur de style</h3>
+            <div class="style-grid">
+              <button class="style-card active" type="button" data-hofman="Analytique" data-desc="Logique, précis.">Analytique</button>
+              <button class="style-card" type="button" data-hofman="Directif" data-desc="Orienté résultats.">Directif</button>
+              <button class="style-card" type="button" data-hofman="Relationnel" data-desc="Empathique.">Relationnel</button>
+              <button class="style-card" type="button" data-hofman="Expressif" data-desc="Créatif.">Expressif</button>
+            </div>
+            <div class="spotlight">
+              <h4 id="hofman-title">Analytique</h4>
+              <p id="hofman-desc">Logique, précis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="offman" class="module" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 07</span>
+          <h2>Quadrant d'Offman</h2>
+          <p>Qualité, piège, challenge, allergie.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Quadrant</h3>
+            <div class="offman-grid">
+              <div class="offman-cell active" data-state="qualite">Qualité<br /><strong>Planification</strong></div>
+              <div class="offman-cell" data-state="piege">Piège<br /><strong>Perfectionnisme</strong></div>
+              <div class="offman-cell" data-state="challenge">Challenge<br /><strong>Souplesse</strong></div>
+              <div class="offman-cell" data-state="allergie">Allergie<br /><strong>Désordre</strong></div>
+            </div>
+            <div class="badge">Opposé positif · Excès</div>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Balance interactive</h3>
+            <input id="offman-slider" type="range" min="0" max="3" step="1" value="0" />
+            <div class="slider-label" id="offman-label">Qualité : planification.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="assertivite" class="module alt" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 08</span>
+          <h2>L'assertivité</h2>
+          <p>L'assertivité est la capacité à exprimer clairement ses idées, besoins et limites tout en respectant ceux des autres.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Repères clés</h3>
+            <ul class="list">
+              <li>Éviter les malentendus, réduire les conflits et instaurer une communication équilibrée et constructive.</li>
+              <li>Renforcer la confiance en soi et la qualité des relations professionnelles ou personnelles.</li>
+              <li>Formuler son message de manière directe, précise et sans agressivité.</li>
+              <li>L'utilisation du « je » aide à exprimer son ressenti sans accuser l'autre.</li>
+              <li>L'écoute active et le respect mutuel sont essentiels pour maintenir une posture assertive.</li>
+            </ul>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Formulation en « je »</h3>
+            <div class="field">
+              <label for="assert-message">Votre message</label>
+              <textarea id="assert-message" placeholder="Je ..."></textarea>
+            </div>
+            <div class="output" id="assert-output">Commencez votre message par « je » pour exprimer votre ressenti.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resilience" class="module" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 09</span>
+          <h2>La résilience</h2>
+          <p>La résilience correspond à la capacité à faire face aux difficultés, à surmonter les échecs et à rebondir après des situations éprouvantes.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Définition</h3>
+            <p>Être résilient ne signifie pas éviter les obstacles, mais apprendre à les transformer en opportunités de croissance. Dans un contexte de changement rapide et de pression constante, la résilience permet de préserver l'équilibre émotionnel et de maintenir la motivation sur le long terme.</p>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Points de repère</h3>
+            <div class="chip-row">
+              <button class="chip active" type="button" data-resilience="face">Faire face aux difficultés</button>
+              <button class="chip" type="button" data-resilience="rebond">Rebondir après des situations éprouvantes</button>
+              <button class="chip" type="button" data-resilience="croissance">Transformer en opportunités de croissance</button>
+              <button class="chip" type="button" data-resilience="equilibre">Préserver l'équilibre émotionnel</button>
+              <button class="chip" type="button" data-resilience="motivation">Maintenir la motivation sur le long terme</button>
+            </div>
+            <div class="spotlight" id="resilience-panel">Faire face aux difficultés.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="competences" class="module alt" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 10</span>
+          <h2>Les 5 compétences majeures du 21e siècle</h2>
+          <p>Ces qualités s'inscrivent pleinement dans le cadre des compétences majeures du 21e siècle, souvent mises en avant dans les systèmes éducatifs et le monde du travail.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Compétences</h3>
+            <ul class="list">
+              <li>Pensée critique</li>
+              <li>Créativité</li>
+              <li>Communication</li>
+              <li>Collaboration</li>
+              <li>Compétence numérique</li>
+            </ul>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Détails</h3>
+            <div class="skills-lab">
+              <div>
+                <button class="skill-item active" type="button" data-skill="Pensée critique" data-desc="Pour analyser les infos et prendre des décisions éclairées.">Pensée critique</button>
+                <button class="skill-item" type="button" data-skill="Créativité" data-desc="Afin d'innover et de proposer des solutions originales.">Créativité</button>
+                <button class="skill-item" type="button" data-skill="Communication" data-desc="Indispensable pour collaborer efficacement.">Communication</button>
+                <button class="skill-item" type="button" data-skill="Collaboration" data-desc="Qui valorise le travail d'équipe et l'intelligence collective.">Collaboration</button>
+                <button class="skill-item" type="button" data-skill="Compétence numérique" data-desc="Essentielle pour évoluer dans un monde technologiquement avancé.">Compétence numérique</button>
+              </div>
+              <div class="skill-panel">
+                <h4 id="skill-title">Pensée critique</h4>
+                <p id="skill-desc">Pour analyser les infos et prendre des décisions éclairées.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="abus" class="module" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 11</span>
+          <h2>Comment gérer un patron abusif</h2>
+          <p>Je commence par nommer le problème : un patron abusif. Ce sont des humiliations, des demandes et des exigences irréalistes. Je reconnais cela comme un risque psycho-social.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Protection et plan B</h3>
+            <p>Je protège ma santé (sommeil, activité physique) et je prépare un plan B : mobilité interne, mise à jour de mon CV, recherche d'un environnement plus sain. Si rien ne change malgré mes démarches, je pars. Ce n'est pas fuir ; c'est préserver ma dignité et mon efficacité professionnelle.</p>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Plan d'action</h3>
+            <div class="scenario-buttons">
+              <button class="chip active" type="button" data-abus-step="assertive">Communication assertive</button>
+              <button class="chip" type="button" data-abus-step="trace">Traçabilité</button>
+              <button class="chip" type="button" data-abus-step="limites">Limites claires</button>
+              <button class="chip" type="button" data-abus-step="documenter">Documentation & escalade</button>
+            </div>
+            <div class="scenario-panel" id="abus-panel">Je décris les faits, j'exprime mon ressenti, je formule une demande précise.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="etude-cas" class="module alt" data-module>
+      <div class="container">
+        <div class="module-header" data-reveal>
+          <span class="eyebrow">Module 12</span>
+          <h2>Étude de cas : résoudre un conflit avec un collègue</h2>
+          <p>Analyse avec la matrice de l'identité (DILTS). Objectif : retrouver mon alignement personnel pour agir avec cohérence et respect.</p>
+        </div>
+        <div class="module-grid">
+          <div class="card" data-reveal>
+            <h3>Matrice de l'identité</h3>
+            <div class="tabs" data-tabs="cas">
+              <button class="tab active" type="button" data-tab="cas-voulu">Ce que je veux être</button>
+              <button class="tab" type="button" data-tab="cas-non">Ce que je ne veux pas être</button>
+              <div class="tab-panel active" data-panel="cas-voulu">
+                <table class="matrix-table">
+                  <thead>
+                    <tr>
+                      <th>Ce que je suis pas</th>
+                      <th>Ce que je pourrais devenir</th>
+                      <th>Ce que je suis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Je ne suis pas quelqu'un d'hostile.</td>
+                      <td>Je pourrais devenir un collaborateur qui inspire le respect et la coopération.</td>
+                      <td>Je suis une personne respectueuse et sincère.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-panel" data-panel="cas-non">
+                <table class="matrix-table">
+                  <thead>
+                    <tr>
+                      <th>Ce que je suis pas</th>
+                      <th>Ce que je pourrais devenir</th>
+                      <th>Ce que je suis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Je ne suis pas agressif.</td>
+                      <td>Je pourrais devenir indifférent si je laisse la tension s'installer.</td>
+                      <td>Parfois, je suis trop réservé quand je me sens attaqué.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-reveal>
+            <h3>Lecture du conflit avec le Quadrant d'Offman</h3>
+            <ul class="list">
+              <li>Qualité : respectueux, à l'écoute.</li>
+              <li>Piège : passif.</li>
+              <li>Défi : affirmé, capable de poser des limites.</li>
+              <li>Allergie : l'arrogance, l'agressivité.</li>
+            </ul>
+            <h3>Mobiliser l'estime de soi et la confiance en soi</h3>
+            <ul class="list">
+              <li>Estime de soi : je reconnais que mon point de vue a de la valeur, même si l'autre n'est pas d'accord.</li>
+              <li>Je cesse de douter de ma légitimité.</li>
+              <li>Confiance en soi : je prépare mes arguments, j'exprime mes limites avec calme, et je choisis le bon moment pour parler.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Formation Communication - Contenus issus des supports du cours.</p>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById("nav-toggle");
+    const navLinks = document.getElementById("nav-links");
+    const progress = document.getElementById("scroll-progress");
+    const surpriseBtn = document.getElementById("surprise-btn");
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    const revealElements = document.querySelectorAll("[data-reveal]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+
+    window.addEventListener("scroll", () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const progressRatio = total > 0 ? window.scrollY / total : 0;
+      progress.style.width = `${Math.min(progressRatio * 100, 100)}%`;
+    });
+
+    const modules = Array.from(document.querySelectorAll("[data-module]"));
+    if (surpriseBtn) {
+      surpriseBtn.addEventListener("click", () => {
+        const target = modules[Math.floor(Math.random() * modules.length)];
+        target.scrollIntoView({ behavior: "smooth" });
+      });
+    }
+
+    const negInput = document.getElementById("neg-thought");
+    const posInput = document.getElementById("pos-thought");
+    const reframeOutput = document.getElementById("reframe-output");
+
+    function updateReframe() {
+      if (!reframeOutput) {
+        return;
+      }
+      const negative = negInput?.value.trim();
+      const positive = posInput?.value.trim();
+      if (!negative && !positive) {
+        reframeOutput.textContent = "Objectif : remplacer les pensées limitantes par des pensées motivantes.";
+        return;
+      }
+      reframeOutput.textContent = `Pensée négative : "${negative || "..."}" → Pensée positive : "${positive || "..."}"`;
+    }
+
+    [negInput, posInput].forEach((input) => {
+      if (input) {
+        input.addEventListener("input", updateReframe);
+      }
+    });
+
+    document.querySelectorAll("[data-negative]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (negInput && posInput) {
+          negInput.value = button.dataset.negative || "";
+          posInput.value = button.dataset.positive || "";
+          updateReframe();
+        }
+      });
+    });
+
+    const ranges = document.querySelectorAll("input[type='range'][data-output]");
+    const matrixAverage = document.getElementById("matrix-average");
+    const matrixAverageBar = document.getElementById("matrix-average-bar");
+
+    function updateMatrix() {
+      let total = 0;
+      ranges.forEach((range) => {
+        const output = document.getElementById(range.dataset.output);
+        if (output) {
+          output.textContent = range.value;
+        }
+        total += Number(range.value);
+      });
+      const average = ranges.length ? total / ranges.length : 0;
+      if (matrixAverage) {
+        matrixAverage.textContent = average.toFixed(1);
+      }
+      if (matrixAverageBar) {
+        matrixAverageBar.style.width = `${(average / 5) * 100}%`;
+      }
+    }
+
+    ranges.forEach((range) => range.addEventListener("input", updateMatrix));
+    updateMatrix();
+
+    document.querySelectorAll(".accordion-trigger").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const item = trigger.closest(".accordion-item");
+        const isOpen = item.classList.contains("is-open");
+        item.parentElement.querySelectorAll(".accordion-item").forEach((entry) => {
+          entry.classList.remove("is-open");
+          const button = entry.querySelector(".accordion-trigger");
+          if (button) {
+            button.setAttribute("aria-expanded", "false");
+          }
+        });
+        if (!isOpen) {
+          item.classList.add("is-open");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+
+    const hofmanTitle = document.getElementById("hofman-title");
+    const hofmanDesc = document.getElementById("hofman-desc");
+    document.querySelectorAll(".style-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        card.parentElement.querySelectorAll(".style-card").forEach((el) => el.classList.remove("active"));
+        card.classList.add("active");
+        if (hofmanTitle) {
+          hofmanTitle.textContent = card.dataset.hofman;
+        }
+        if (hofmanDesc) {
+          hofmanDesc.textContent = card.dataset.desc;
+        }
+      });
+    });
+
+    const offmanSlider = document.getElementById("offman-slider");
+    const offmanLabel = document.getElementById("offman-label");
+    const offmanStates = [
+      {
+        key: "qualite",
+        label: "Qualité : planification."
+      },
+      {
+        key: "piege",
+        label: "Piège : perfectionnisme."
+      },
+      {
+        key: "challenge",
+        label: "Challenge : souplesse."
+      },
+      {
+        key: "allergie",
+        label: "Allergie : désordre."
+      }
+    ];
+
+    function updateOffman() {
+      if (!offmanSlider || !offmanLabel) {
+        return;
+      }
+      const index = Number(offmanSlider.value);
+      const state = offmanStates[index];
+      offmanLabel.textContent = state.label;
+      document.querySelectorAll(".offman-cell").forEach((cell) => {
+        cell.classList.toggle("active", cell.dataset.state === state.key);
+      });
+    }
+
+    if (offmanSlider) {
+      offmanSlider.addEventListener("input", updateOffman);
+      updateOffman();
+    }
+
+    const ecoutePanel = document.getElementById("ecoute-panel");
+    const ecouteMap = {
+      volonte: "L'écoute = une volonté.",
+      intention: "L'écoute = une intention.",
+      attention: "L'écoute = une attention."
+    };
+
+    document.querySelectorAll("[data-ecoute]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const group = btn.closest(".chip-row");
+        group.querySelectorAll(".chip").forEach((el) => el.classList.remove("active"));
+        btn.classList.add("active");
+        if (ecoutePanel) {
+          ecoutePanel.textContent = ecouteMap[btn.dataset.ecoute];
+        }
+      });
+    });
+
+    const triadPanel = document.getElementById("triad-panel");
+    const triadMap = {
+      pensee: "Pensée.",
+      emotion: "Émotion.",
+      comportement: "Comportement."
+    };
+
+    document.querySelectorAll("[data-triad]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btn.parentElement.querySelectorAll(".triad-btn").forEach((el) => el.classList.remove("active"));
+        btn.classList.add("active");
+        if (triadPanel) {
+          triadPanel.textContent = triadMap[btn.dataset.triad];
+        }
+      });
+    });
+
+    const assertMessage = document.getElementById("assert-message");
+    const assertOutput = document.getElementById("assert-output");
+
+    if (assertMessage) {
+      assertMessage.addEventListener("input", () => {
+        const value = assertMessage.value.trim();
+        if (!assertOutput) {
+          return;
+        }
+        assertOutput.textContent = value
+          ? `Message en « je » : ${value}`
+          : "Commencez votre message par « je » pour exprimer votre ressenti.";
+      });
+    }
+
+    const resiliencePanel = document.getElementById("resilience-panel");
+    const resilienceMap = {
+      face: "Faire face aux difficultés.",
+      rebond: "Rebondir après des situations éprouvantes.",
+      croissance: "Transformer en opportunités de croissance.",
+      equilibre: "Préserver l'équilibre émotionnel.",
+      motivation: "Maintenir la motivation sur le long terme."
+    };
+
+    document.querySelectorAll("[data-resilience]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const group = btn.closest(".chip-row");
+        group.querySelectorAll(".chip").forEach((el) => el.classList.remove("active"));
+        btn.classList.add("active");
+        if (resiliencePanel) {
+          resiliencePanel.textContent = resilienceMap[btn.dataset.resilience];
+        }
+      });
+    });
+
+    const skillItems = document.querySelectorAll(".skill-item");
+    const skillTitle = document.getElementById("skill-title");
+    const skillDesc = document.getElementById("skill-desc");
+
+    skillItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        skillItems.forEach((el) => el.classList.remove("active"));
+        item.classList.add("active");
+        if (skillTitle) {
+          skillTitle.textContent = item.dataset.skill;
+        }
+        if (skillDesc) {
+          skillDesc.textContent = item.dataset.desc;
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-tabs]").forEach((group) => {
+      const buttons = group.querySelectorAll("[data-tab]");
+      const panels = group.querySelectorAll("[data-panel]");
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          buttons.forEach((btn) => btn.classList.remove("active"));
+          panels.forEach((panel) => panel.classList.remove("active"));
+          button.classList.add("active");
+          const target = button.dataset.tab;
+          const panel = group.querySelector(`[data-panel="${target}"]`);
+          if (panel) {
+            panel.classList.add("active");
+          }
+        });
+      });
+    });
+
+    const abusePanel = document.getElementById("abus-panel");
+    const abuseSteps = {
+      assertive: "Je décris les faits, j'exprime mon ressenti, je formule une demande précise.",
+      trace: "Après chaque échange important, je confirme par écrit (email) pour créer de la traçabilité et clarifier les attentes.",
+      limites: "Je pose des limites claires ; je reste ouvert au dialogue professionnel, mais je refuse les attaques personnelles.",
+      documenter: "Je documente les incidents (dates, messages, témoins) dans un dossier factuel. Si il faut, j'escalade vers les RH, un supérieur ou la médiation, en m'appuyant sur les procédures internes et le droit du travail."
+    };
+
+    document.querySelectorAll("[data-abus-step]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const group = btn.closest(".scenario-buttons");
+        group.querySelectorAll(".chip").forEach((el) => el.classList.remove("active"));
+        btn.classList.add("active");
+        if (abusePanel) {
+          abusePanel.textContent = abuseSteps[btn.dataset.abusStep];
+        }
+      });
+    });
+  </script>
+</body>
+</html>
